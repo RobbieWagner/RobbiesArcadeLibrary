@@ -1,0 +1,13 @@
+using UnityEngine;
+using RobbieWagnerGames;
+
+namespace RobbieWagnerGames.ArcadeLibrary
+{
+	public class #SCRIPTNAME# : MonoBehaviour
+	{
+		private void Awake()
+		{
+		
+		}
+	}
+}
