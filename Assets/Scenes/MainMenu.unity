@@ -859,12 +859,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1564970656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Script: {fileID: 11500000, guid: 937f376c41e0c834c97760072df28fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
+  eventSystem: {fileID: 1433827563}
+  autoInitialize: 1
 --- !u!1 &1569248270
 GameObject:
   m_ObjectHideFlags: 0

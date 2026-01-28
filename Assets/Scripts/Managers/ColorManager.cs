@@ -18,9 +18,7 @@ namespace RobbieWagnerGames.ArcadeLibrary.Managers
         [SerializedDictionary("Game","Colors")] 
         public SerializedDictionary<GameName, ColorData> colorsByGame;
 
-        public ColorData activeColorData => colorsByGame[GameManager.Instance.CurrentGame.gameName != GameName.NONE 
-                                                                ? GameManager.Instance.CurrentGame.gameName 
-                                                                : currentGame];
+        public ColorData activeColorData => colorsByGame[GameManager.Instance.isGameSet ? GameManager.Instance.CurrentGame.gameName : currentGame];
         public List<Color> activeColorMapping => activeColorData.colors;
 
         private GameName _currentGame = GameName.NONE;

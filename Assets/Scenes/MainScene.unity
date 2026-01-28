@@ -584,17 +584,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <GameLibrary>k__BackingField:
-  - gameName: 0
+  - gameName: -1
     sceneName: 
     gameIcon: {fileID: 0}
     gamePalette: {fileID: 0}
     gameDesc: 
-  <CurrentGame>k__BackingField:
-    gameName: -1
-    sceneName: 
-    gameIcon: {fileID: 0}
-    gamePalette: {fileID: 21300000, guid: c58c689bc81e2d2499a0b5555afa31f9, type: 3}
-    gameDesc: 
+  emptyGame: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
