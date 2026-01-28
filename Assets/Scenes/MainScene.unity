@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: bdc6e91fb757d409193a452dd0fa27d0, type: 2}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -228,6 +228,7 @@ Transform:
   - {fileID: 1526206659}
   - {fileID: 1197918466}
   - {fileID: 531769780}
+  - {fileID: 1364357149}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &531769779
@@ -438,6 +439,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b88d2617425db684cb31e25379f20962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1364357148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1364357149}
+  - component: {fileID: 1364357150}
+  m_Layer: 0
+  m_Name: ColorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1364357149
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364357148}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 302629901}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1364357150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364357148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c2de520cd0a9704388c114dc207a630, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorsByGame:
+    _serializedList:
+    - Key: -1
+      Value:
+        colors:
+        - {r: 0, g: 0, b: 0, a: 1}
+        - {r: 0.33, g: 0.33, b: 0.33, a: 1}
+        - {r: 0.67, g: 0.67, b: 0.67, a: 1}
+        - {r: 1, g: 1, b: 1, a: 1}
+        colorPalette: {fileID: 21300000, guid: c58c689bc81e2d2499a0b5555afa31f9, type: 3}
+  uiMat: {fileID: 2100000, guid: bdc6e91fb757d409193a452dd0fa27d0, type: 2}
+  renderMat: {fileID: 2100000, guid: dd2e55825303a49f69c683d64a5854ba, type: 2}
 --- !u!1 &1526206658
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,13 +583,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6dac93c08768d74f9a80de053c758f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  games:
+  <GameLibrary>k__BackingField:
   - gameName: 0
-    sceneName: Torchlight
-    gameIcon: {fileID: 21300000, guid: 3481020707619a149948efb8e3cb7a63, type: 3}
-    gamePalette: {fileID: 21300000, guid: 5b4e5301017474c38b97559e2654e097, type: 3}
-    gameDesc: Find your way out of the cave, keeping your light on as a guide. Watch
-      out for falling water!
+    sceneName: 
+    gameIcon: {fileID: 0}
+    gamePalette: {fileID: 0}
+    gameDesc: 
+  <CurrentGame>k__BackingField:
+    gameName: -1
+    sceneName: 
+    gameIcon: {fileID: 0}
+    gamePalette: {fileID: 21300000, guid: c58c689bc81e2d2499a0b5555afa31f9, type: 3}
+    gameDesc: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
