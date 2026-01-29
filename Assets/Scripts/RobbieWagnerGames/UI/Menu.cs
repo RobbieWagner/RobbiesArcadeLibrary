@@ -681,7 +681,7 @@ namespace RobbieWagnerGames.UI
         protected virtual void OnClosed() { }
         protected virtual void OnElementSelected(Selectable element)
         {
-            BasicAudioManager.Instance.Play(AudioSourceName.UINav, false);
+            BasicAudioManager.Instance.Play(AudioSourceName.UINav);
             UpdateSelectionIcon(element);
         }
 

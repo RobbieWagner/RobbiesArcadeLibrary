@@ -9,10 +9,9 @@ namespace RobbieWagnerGames.Audio
     {
         NONE = -1,
         MAIN,
-        PLAYER,
         UI,
         MUSIC,
-        HAZARD,
+        GAMEPLAY,
 
     }
 

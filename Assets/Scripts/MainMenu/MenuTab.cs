@@ -7,6 +7,6 @@ namespace RobbieWagnerGames.ArcadeLibrary
     public class MenuTab : MonoBehaviour
     {
         public Menu menu;
-        public TextMeshProUGUI menuText;
+        public ColorAdaptedText menuText;
     }
 }

@@ -22,7 +22,6 @@ namespace RobbieWagnerGames.ArcadeLibrary.Managers
         {
             base.Awake();
             CurrentGame = GameLibrary.FirstOrDefault(g => g.gameName == emptyGame);
-            Debug.Log(SceneLoadManager.Instance != null);
             StartCoroutine(SceneLoadManager.Instance.LoadSceneAdditive("MainMenu", true, .25f));
         }
 

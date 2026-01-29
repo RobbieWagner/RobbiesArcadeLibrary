@@ -150,4 +150,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 384813346319352263}
-  colorIndex: 0
+  _colorIndex: 0

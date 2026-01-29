@@ -48,8 +48,14 @@ namespace RobbieWagnerGames.ArcadeLibrary
             else
                 Debug.LogWarning("Could not find active menu in array");
 
+            foreach (ColorAdaptedText text in tabs.Select(t => t.menuText))
+                text.colorIndex = 1;
+
             if (newMenuIndex != -1)
+            {
                 Menu.activeMenu = tabs[newMenuIndex].menu;
+                tabs[newMenuIndex].menuText.colorIndex = 0;
+            }
             else
                 Debug.LogWarning("Could not locate new tab");
         }
