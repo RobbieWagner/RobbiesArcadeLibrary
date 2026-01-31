@@ -1,20 +1,17 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace RobbieWagnerGames.ArcadeLibrary
 {
-    public class GameSelectionButton : Selectable, IPointerEnterHandler, IPointerExitHandler
+    public class GameSelectionButton :MonoBehaviour //Selectable, IPointerEnterHandler, IPointerExitHandler
     {
-        public override void OnPointerEnter(PointerEventData eventData)
+        public void OnHover()
         {
-            
+            Debug.Log("enter");
         }
 
-        public override void OnPointerExit(PointerEventData eventData)
+        public void OnLeave()
         {
-            
+            Debug.Log("exit");
         }
     }
 }
