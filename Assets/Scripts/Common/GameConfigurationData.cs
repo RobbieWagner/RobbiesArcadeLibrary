@@ -5,7 +5,8 @@ public enum GameName
 {
     NONE = -1,
     TORCHLIGHT,
-    RICOCHET_WEB
+    RICOCHET_WEB,
+    GAMBLING
 }
 
 [Serializable]

@@ -4,6 +4,7 @@ using RobbieWagnerGames.Managers;
 using RobbieWagnerGames.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace RobbieWagnerGames.ArcadeLibrary
 {

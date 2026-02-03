@@ -83,11 +83,11 @@ Preset:
   - target: {fileID: 0}
     propertyPath: m_fontAsset
     value: 
-    objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    objectReference: {fileID: 11400000, guid: 88e80878adb90ff47901fbb941f07ac8, type: 2}
   - target: {fileID: 0}
     propertyPath: m_sharedMaterial
     value: 
-    objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    objectReference: {fileID: -3462560380873204068, guid: 88e80878adb90ff47901fbb941f07ac8, type: 2}
   - target: {fileID: 0}
     propertyPath: m_fontSharedMaterials.Array.size
     value: 0
@@ -210,7 +210,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_TextStyleHashCode
-    value: -1183493901
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_overrideHtmlColors
@@ -222,11 +222,11 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_fontSize
-    value: 6
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_fontSizeBase
-    value: 6
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_fontWeight
@@ -246,15 +246,15 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_fontStyle
-    value: 32
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_HorizontalAlignment
-    value: 2
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_VerticalAlignment
-    value: 512
+    value: 256
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_textAlignment
