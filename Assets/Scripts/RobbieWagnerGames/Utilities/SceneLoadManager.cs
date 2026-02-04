@@ -134,7 +134,7 @@ namespace RobbieWagnerGames.Utilities
             }
         }
 
-        private bool IsSceneLoaded(string sceneName)
+        public bool IsSceneLoaded(string sceneName)
         {
             if (GetSceneBuildIndex(sceneName) == -1)
                 return false;
@@ -145,6 +145,7 @@ namespace RobbieWagnerGames.Utilities
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
                 Scene scene = SceneManager.GetSceneAt(i);
+                Debug.Log($"{scene.name} {scene.isLoaded} {sceneName}");
                 if (scene.name == sceneName && scene.isLoaded)
                 {
                     if (!loadedScenes.Contains(sceneName))

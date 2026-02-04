@@ -1,3 +1,5 @@
+using System.Linq;
+using RobbieWagnerGames.ArcadeLibrary.Managers;
 using UnityEngine;
 
 namespace RobbieWagnerGames.ArcadeLibrary
@@ -7,18 +9,16 @@ namespace RobbieWagnerGames.ArcadeLibrary
         [Header("button details")]
         private bool isHovering = false;
         private Quaternion initialRotation;
-        public GameName game;
+        public GameName gameName;
         public GameObject buttonObj;
         [SerializeField] private Transform box;
 
-        [Header("game info")]
-        public string titleText;
-        public string descText;
-        public Sprite gameIcon;
+        public GameConfigurationData gameConfig {get; set;}
 
         private void Awake()
         {
             initialRotation = box.rotation;
+            gameConfig = GameManager.Instance.GameLibrary.First(g => g.gameName == gameName);
         }
 
         public void OnHover()

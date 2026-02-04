@@ -13,8 +13,8 @@ public enum GameName
 public class GameConfigurationData
 {
     public GameName gameName;
+    public string gameTitle;
     public string sceneName;
     public Sprite gameIcon;
-    public Sprite gamePalette;
     [TextArea] public string gameDesc; 
 }

@@ -22,7 +22,29 @@ namespace RobbieWagnerGames.ArcadeLibrary.Managers
         {
             base.Awake();
             CurrentGame = GameLibrary.FirstOrDefault(g => g.gameName == emptyGame);
-            StartCoroutine(SceneLoadManager.Instance.LoadSceneAdditive("MainMenu", true, .25f));
+            
+            StartCoroutine(LoadMainMenuCo());
+        }
+
+        private IEnumerator LoadMainMenuCo()
+        {
+            yield return new WaitForEndOfFrame();
+
+            bool isGameSceneLoaded = false;
+            foreach (GameConfigurationData game in GameLibrary)
+            {
+                if (SceneLoadManager.Instance.IsSceneLoaded(game.sceneName))
+                {
+                    isGameSceneLoaded = true;
+                    break;
+                }
+            }
+            
+            if (!SceneLoadManager.Instance.IsSceneLoaded("MainMenu") && !isGameSceneLoaded)
+            {
+                yield return SceneLoadManager.Instance.LoadSceneAdditive("MainMenu", true, .25f);
+                Debug.Log("MainMenu loaded");
+            }
         }
 
         public IEnumerator LoadGame(GameName gameName)

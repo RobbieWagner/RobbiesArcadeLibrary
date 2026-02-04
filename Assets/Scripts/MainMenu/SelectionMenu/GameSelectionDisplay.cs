@@ -43,9 +43,9 @@ namespace RobbieWagnerGames.ArcadeLibrary
                 return;
             }
             
-            titleText.text = button.titleText;
-            descText.text = button.descText;
-            icon.sprite = button.gameIcon;
+            titleText.text = button.gameConfig.gameTitle;
+            descText.text = button.gameConfig.gameDesc;
+            icon.sprite = button.gameConfig.gameIcon;
             display.gameObject.SetActive(true);
         }
     }

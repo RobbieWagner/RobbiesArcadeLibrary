@@ -188,9 +188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f87709c0ca06e54d83b39f9f2101b44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game: 0
+  gameName: 2
   buttonObj: {fileID: 1668945167584826499}
   box: {fileID: 3753571585045663285}
-  titleText: Torchlight
-  descText: Use your torch to find a way out of the cave. Just don't let it go out!
-  gameIcon: {fileID: 21300000, guid: 3481020707619a149948efb8e3cb7a63, type: 3}

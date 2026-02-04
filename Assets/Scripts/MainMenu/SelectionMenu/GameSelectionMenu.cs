@@ -3,6 +3,7 @@ using RobbieWagnerGames.ArcadeLibrary.Managers;
 using RobbieWagnerGames.Managers;
 using RobbieWagnerGames.UI;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace RobbieWagnerGames.ArcadeLibrary
 {
@@ -11,27 +12,67 @@ namespace RobbieWagnerGames.ArcadeLibrary
         [Header("Game Selection")]
         [SerializeField] private Camera renderCamera;
         [SerializeField] private LayerMask buttonLayerMask = -1;
-        [SerializeField] private Vector2 rayOffset;
-        [SerializeField] private float raycastScale;
+        [SerializeField] private float rayLength = 25f;
         
         private GameSelectionButton currentHoveredButton;
         [SerializeField] private List<GameSelectionButton> gameSelectionButtons = new List<GameSelectionButton>();
 
-        [SerializeField] private GameSelectionDisplay gameSelectionDisplayPrefab;
+        [Header("Raycast Adjustments")]
+        [SerializeField] private float xScaleMultiplier = 1f; // Adjust this to fix X scaling
+        [SerializeField] private float xOffset = 0f; // Fine-tune X position
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            InputManager.Instance.Controls.UI.Click.performed += SelectCurrentButton;
+        }
 
         protected override void Update()
         {
             base.Update();
 
-            Vector2 mousePosition = InputManager.Instance.Controls.UI.Point.ReadValue<Vector2>();
-            Ray ray = new Ray(renderCamera.ScreenToWorldPoint(mousePosition), renderCamera.transform.forward);
-            ray.origin *= raycastScale; 
-            ray.origin += (Vector3) rayOffset;
+            Vector2 mousePosition = Input.mousePosition;
+            Rect cameraViewportRect = renderCamera.rect;
+            Rect cameraPixelRect = new Rect(
+                cameraViewportRect.x * Screen.width,
+                cameraViewportRect.y * Screen.height,
+                cameraViewportRect.width * Screen.width,
+                cameraViewportRect.height * Screen.height
+            );
             
-            // Debug.DrawLine(ray.origin, ray.direction * 25 + ray.origin, Color.red, 1);
-            // Debug.Log(ray.origin);
+            if (!cameraPixelRect.Contains(mousePosition))
+            {
+                if(currentHoveredButton != null)
+                {
+                    currentHoveredButton.OnLeave();
+                    currentHoveredButton = null;
+                    GameSelectionDisplay.Instance.currentButton = currentHoveredButton;
+                }
+                return;
+            }
             
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, buttonLayerMask))
+            Vector2 normalizedPos = new Vector2(
+                (mousePosition.x - cameraPixelRect.x) / cameraPixelRect.width,
+                (mousePosition.y - cameraPixelRect.y) / cameraPixelRect.height
+            );
+            
+            // Apply X scale adjustment
+            float adjustedX = (normalizedPos.x - 0.5f) / renderCamera.aspect * xScaleMultiplier + 0.5f + xOffset;
+            
+            Vector3 viewportPoint = new Vector3(
+                adjustedX,
+                normalizedPos.y,
+                renderCamera.nearClipPlane
+            );
+            
+            Vector3 rayOrigin = renderCamera.ViewportToWorldPoint(viewportPoint);
+            Vector3 rayDirection = renderCamera.transform.forward;
+            Ray ray = new Ray(rayOrigin, rayDirection);
+            
+            Debug.DrawLine(ray.origin, ray.origin + ray.direction * rayLength, Color.red, Time.deltaTime);
+            
+            if (Physics.Raycast(ray, out RaycastHit hit, rayLength, buttonLayerMask))
             {
                 GameSelectionButton button = hit.collider.GetComponent<GameSelectionButton>();
                 if (button != null)
@@ -42,7 +83,7 @@ namespace RobbieWagnerGames.ArcadeLibrary
                             currentHoveredButton.OnLeave();
                         button.OnHover();
                         currentHoveredButton = button;
-                        ColorManager.Instance.currentGame = button.game;
+                        ColorManager.Instance.currentGame = button.gameName;
                         GameSelectionDisplay.Instance.currentButton = currentHoveredButton;
                     }
                 }
@@ -52,6 +93,24 @@ namespace RobbieWagnerGames.ArcadeLibrary
                 currentHoveredButton.OnLeave();
                 currentHoveredButton = null;
                 GameSelectionDisplay.Instance.currentButton = currentHoveredButton;
+            }
+        }
+
+        private void SelectCurrentButton(InputAction.CallbackContext context)
+        {
+            if (currentHoveredButton != null)
+            {
+                PromptData promptData = new PromptData()
+                {
+                    title = currentHoveredButton.gameConfig.gameTitle,
+                    description = currentHoveredButton.gameConfig.gameDesc, 
+                    confirmButtonText = "Play",
+                    cancelButtonText = "Go Back",
+                    confirmButtonColor = ColorManager.Instance.activeColorData.colors[2],
+                    cancelButtonColor = ColorManager.Instance.activeColorData.colors[3],
+                    OnConfirm = () => GameManager.Instance.LoadGame(currentHoveredButton.gameName)
+                };
+                PromptManager.Instance.ShowPrompt(promptData);
             }
         }
 
