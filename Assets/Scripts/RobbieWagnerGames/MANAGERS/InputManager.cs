@@ -103,6 +103,7 @@ namespace RobbieWagnerGames.Managers
         /// </summary>
         public void DisableActionMap(ActionMapName mapName)
         {
+            Debug.Log($"disabled {mapName}");
             if (actionMaps.TryGetValue(mapName, out var actionMap))
             {
                 actionMap.Disable();

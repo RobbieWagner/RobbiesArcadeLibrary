@@ -57,7 +57,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Palette:
-        m_Texture: {fileID: 2800000, guid: b4ef6153558844341815ed121d0a3897, type: 3}
+        m_Texture: {fileID: 2800000, guid: 351096eacf20640089e6c99e07b77d46, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PaletteTexture:

@@ -73,7 +73,7 @@ namespace RobbieWagnerGames.FirstPerson
 
         private void SetupInput()
         {
-            mouseLookAction = InputManager.Instance.GetAction(ActionMapName.GAME , "MouseLook");
+            mouseLookAction = InputManager.Instance.GetAction(ActionMapName.GAME , "MousePosition");
             mouseLookAction.performed += OnLookPerformed;
             mouseLookAction.canceled += OnLookCanceled;
 

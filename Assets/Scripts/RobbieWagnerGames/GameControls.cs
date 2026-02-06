@@ -902,6 +902,15 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""c2d4f6fd-c1f0-4e06-a705-ab5dfc13203e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1058,6 +1067,28 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""998bdaf7-9454-4af7-9645-147e03b8c7ba"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b4958da0-58b0-46e6-a8a9-963285775444"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1091,6 +1122,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         m_GAME_ControllerLook = m_GAME.FindAction("ControllerLook", throwIfNotFound: true);
         m_GAME_MousePosition = m_GAME.FindAction("MousePosition", throwIfNotFound: true);
         m_GAME_Shoot = m_GAME.FindAction("Shoot", throwIfNotFound: true);
+        m_GAME_Interact = m_GAME.FindAction("Interact", throwIfNotFound: true);
     }
 
     ~@GameControls()
@@ -1598,6 +1630,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_GAME_ControllerLook;
     private readonly InputAction m_GAME_MousePosition;
     private readonly InputAction m_GAME_Shoot;
+    private readonly InputAction m_GAME_Interact;
     /// <summary>
     /// Provides access to input actions defined in input action map "GAME".
     /// </summary>
@@ -1625,6 +1658,10 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "GAME/Shoot".
         /// </summary>
         public InputAction @Shoot => m_Wrapper.m_GAME_Shoot;
+        /// <summary>
+        /// Provides access to the underlying input action "GAME/Interact".
+        /// </summary>
+        public InputAction @Interact => m_Wrapper.m_GAME_Interact;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1663,6 +1700,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         /// <summary>
@@ -1686,6 +1726,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         /// <summary>
@@ -1883,5 +1926,12 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnShoot(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

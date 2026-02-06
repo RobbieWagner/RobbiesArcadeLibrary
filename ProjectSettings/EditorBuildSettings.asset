@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: a7349f425edd4ad469265f22177ecefd
+  - enabled: 1
+    path: Assets/Scenes/Torchlight.unity
+    guid: 1da8bb7de9dc42040a1c3152e5d7a0cf
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: b8fb090eaae6c6149838a455c5b08e5d, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}

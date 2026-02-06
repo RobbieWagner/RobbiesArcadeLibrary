@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 using RobbieWagnerGames.Utilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RobbieWagnerGames.FirstPerson
 {
@@ -18,6 +20,10 @@ namespace RobbieWagnerGames.FirstPerson
         [SerializeField] private float gravity = -9.8f;
         [SerializeField] private LayerMask groundMask;
         [SerializeField] private float groundCheckDistance = 0.1f;
+
+        [Header("Bob Effect Settings")]
+        [SerializeField] private bool enableBobEffect = true;
+        [SerializeField] private List<FirstPersonBobEffect> bobEffects;
 
         [Header("Footstep Settings")]
         [SerializeField] private float footstepInterval = 0.5f;
@@ -75,6 +81,7 @@ namespace RobbieWagnerGames.FirstPerson
             ApplyGravity();
             MoveCharacter();
             UpdateFootsteps();
+            UpdateBobEffect();
         }
 
         private void SetupInput()
@@ -86,19 +93,10 @@ namespace RobbieWagnerGames.FirstPerson
 
         private void UpdateGroundCheck()
         {
-            Vector3 rayOrigin = transform.position + Vector3.up * 0.01f;
-            isGrounded = Physics.Raycast(rayOrigin, Vector3.down, 
-                out RaycastHit hit, groundCheckDistance, groundMask);
-
-            if (isGrounded)
-            {
-                GroundInfo groundInfo = hit.collider.GetComponent<GroundInfo>();
-                CurrentGroundType = groundInfo != null ? groundInfo.Type : GroundType.None;
-            }
-            else
-            {
-                CurrentGroundType = GroundType.None;
-            }
+            Vector3 rayOrigin = transform.position + characterController.center;
+            float rayLength = characterController.height / 2 + groundCheckDistance;
+            
+            isGrounded = Physics.SphereCast(rayOrigin, characterController.radius * 0.9f, Vector3.down, out RaycastHit _, rayLength, groundMask);
         }
 
         private void ApplyGravity()
@@ -115,9 +113,9 @@ namespace RobbieWagnerGames.FirstPerson
 
         private void MoveCharacter()
         {
-            if (moveInput == Vector3.zero) return;
-
             Vector3 moveDirection = transform.right * moveInput.x + transform.forward * moveInput.z;
+            if (moveInput == Vector3.zero)
+                moveDirection = Vector3.down;
             characterController.Move(moveDirection * walkSpeed * Time.deltaTime + velocity * Time.deltaTime);
         }
 
@@ -130,6 +128,15 @@ namespace RobbieWagnerGames.FirstPerson
                 PlayFootstepSound();
                 nextFootstepTime = Time.time + footstepInterval;
             }
+        }
+
+        private void UpdateBobEffect()
+        {
+            if (!enableBobEffect || !bobEffects.Any()) return;
+
+            bool shouldBob = IsMoving && isGrounded;
+            foreach(FirstPersonBobEffect bob in bobEffects)
+                bob.SetBobActive(shouldBob);
         }
 
         private void PlayFootstepSound()
@@ -188,12 +195,6 @@ namespace RobbieWagnerGames.FirstPerson
             Gizmos.DrawLine(rayOrigin, rayOrigin + Vector3.down * groundCheckDistance);
         }
 
-        /// <summary>
-        /// Smoothly moves the player to a specific world position using DoTween.
-        /// </summary>
-        /// <param name="targetPosition">The world position to move to.</param>
-        /// <param name="duration">The duration of the move in seconds.</param>
-        /// <param name="restoreMovement">Whether to restore movement after rotation.</param>
         public IEnumerator MoveToWorldPositionCo(Vector3 targetPosition, float duration, bool restoreMovement = false)
         {
             CanMove = false;

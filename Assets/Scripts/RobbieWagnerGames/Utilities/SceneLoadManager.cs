@@ -12,7 +12,7 @@ namespace RobbieWagnerGames.Utilities
     {
         private List<string> loadedScenes = new List<string>();
 
-        public IEnumerator LoadSceneAdditive(string sceneName, bool coverScreen = true, float coverScreenDuration = 1, Action callback = null)
+        public IEnumerator LoadSceneAdditive(string sceneName, bool coverScreen = true, float coverScreenDuration = 0.5f, Action callback = null)
         {
             if (coverScreen)
                 yield return StartCoroutine(ScreenCover.Instance.FadeCoverIn(coverScreenDuration));
@@ -145,7 +145,6 @@ namespace RobbieWagnerGames.Utilities
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
                 Scene scene = SceneManager.GetSceneAt(i);
-                Debug.Log($"{scene.name} {scene.isLoaded} {sceneName}");
                 if (scene.name == sceneName && scene.isLoaded)
                 {
                     if (!loadedScenes.Contains(sceneName))

@@ -15,6 +15,7 @@ namespace RobbieWagnerGames.ArcadeLibrary
         [SerializeField] private float rayLength = 25f;
         
         private GameSelectionButton currentHoveredButton;
+        private GameSelectionButton selectedButton;
         [SerializeField] private List<GameSelectionButton> gameSelectionButtons = new List<GameSelectionButton>();
 
         [Header("Raycast Adjustments")]
@@ -100,6 +101,7 @@ namespace RobbieWagnerGames.ArcadeLibrary
         {
             if (currentHoveredButton != null)
             {
+                selectedButton = currentHoveredButton;
                 PromptData promptData = new PromptData()
                 {
                     title = currentHoveredButton.gameConfig.gameTitle,
@@ -108,7 +110,8 @@ namespace RobbieWagnerGames.ArcadeLibrary
                     cancelButtonText = "Go Back",
                     confirmButtonColor = ColorManager.Instance.activeColorData.colors[2],
                     cancelButtonColor = ColorManager.Instance.activeColorData.colors[3],
-                    OnConfirm = () => GameManager.Instance.LoadGame(currentHoveredButton.gameName)
+                    OnConfirm = () => GameManager.Instance.StartCoroutine(GameManager.Instance.LoadGame(selectedButton.gameName)),
+                    OnCancel = () => selectedButton = null
                 };
                 PromptManager.Instance.ShowPrompt(promptData);
             }

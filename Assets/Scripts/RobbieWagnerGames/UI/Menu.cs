@@ -80,8 +80,8 @@ namespace RobbieWagnerGames.UI
         {
             canvas = GetComponent<Canvas>();
             
-            if (!enableOnStart)
-                Close();
+            if (enableOnStart)
+                Open();
             
             RefreshSelectableElements();
             
