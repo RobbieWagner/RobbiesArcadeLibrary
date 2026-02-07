@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 531769783}
   - component: {fileID: 531769782}
   - component: {fileID: 531769781}
+  - component: {fileID: 531769785}
   m_Layer: 0
   m_Name: ScreenCoverCanvas
   m_TagString: Untagged
@@ -288,6 +289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 531769784}
   screenCover: {fileID: 100901519}
+  screenAnimator: {fileID: 531769785}
 --- !u!114 &531769782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,6 +353,28 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 32767
   m_TargetDisplay: 0
+--- !u!95 &531769785
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 531769779}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 88b393d507ef37143aac51b2f0405bbf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &537171323
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +393,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &537171324
 RectTransform:
   m_ObjectHideFlags: 0

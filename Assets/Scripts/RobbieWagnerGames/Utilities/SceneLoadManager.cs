@@ -12,10 +12,10 @@ namespace RobbieWagnerGames.Utilities
     {
         private List<string> loadedScenes = new List<string>();
 
-        public IEnumerator LoadSceneAdditive(string sceneName, bool coverScreen = true, float coverScreenDuration = 0.5f, Action callback = null)
+        public IEnumerator LoadSceneAdditive(string sceneName, bool coverScreen = true, Action callback = null)
         {
             if (coverScreen)
-                yield return StartCoroutine(ScreenCover.Instance.FadeCoverIn(coverScreenDuration));
+                yield return StartCoroutine(AnimateScreenCoverIn());
             
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             
@@ -30,7 +30,7 @@ namespace RobbieWagnerGames.Utilities
             callback?.Invoke();
             
             if (coverScreen)
-                yield return StartCoroutine(ScreenCover.Instance.FadeCoverOut(coverScreenDuration));
+                yield return StartCoroutine(AnimateScreenCoverOut());
         }
 
         public IEnumerator UnloadScene(string sceneName, bool coverScreen = true, Action callback = null, bool errorOnFail = true)
@@ -47,7 +47,7 @@ namespace RobbieWagnerGames.Utilities
             }
 
             if (coverScreen)
-                yield return StartCoroutine(ScreenCover.Instance.FadeCoverIn());
+                yield return StartCoroutine(AnimateScreenCoverIn());
             
             AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(sceneName);
             
@@ -59,7 +59,7 @@ namespace RobbieWagnerGames.Utilities
             callback?.Invoke();
             
             if (coverScreen)
-                yield return StartCoroutine(ScreenCover.Instance.FadeCoverOut());
+                yield return StartCoroutine(AnimateScreenCoverOut());
         }
 
         public IEnumerator UnloadScenes(List<string> sceneNames, bool coverScreen = true, Action callback = null, bool errorOnFail = true)
@@ -78,7 +78,7 @@ namespace RobbieWagnerGames.Utilities
             }
 
             if (coverScreen)
-                yield return StartCoroutine(ScreenCover.Instance.FadeCoverIn());
+                yield return StartCoroutine(AnimateScreenCoverIn());
             
             List<AsyncOperation> unloadOperations = new List<AsyncOperation>();
             
@@ -100,12 +100,13 @@ namespace RobbieWagnerGames.Utilities
             callback?.Invoke();
             
             if (coverScreen)
-                yield return StartCoroutine(ScreenCover.Instance.FadeCoverOut());
+                yield return StartCoroutine(AnimateScreenCoverOut());
         }
         
-        public IEnumerator UnloadAllScenesExcept(List<string> scenesToKeep, Action callback = null)
+        public IEnumerator UnloadAllScenesExcept(List<string> scenesToKeep, Action callback = null, bool coverScreen = true)
         {
-            yield return StartCoroutine(ScreenCover.Instance.FadeCoverIn());
+            if(coverScreen)
+                yield return StartCoroutine(AnimateScreenCoverIn());
             
             List<string> scenesToUnload = loadedScenes
                 .Where(scene => !scenesToKeep.Contains(scene))
@@ -132,6 +133,32 @@ namespace RobbieWagnerGames.Utilities
 
                 callback?.Invoke();
             }
+        }
+
+        private IEnumerator AnimateScreenCoverIn()
+        {
+            bool animationCompleted = false;
+            
+            ScreenCover.Instance.AnimateScreenCoverIn(() =>
+            {
+                animationCompleted = true;
+            });
+            
+            while (!animationCompleted)
+                yield return null;
+        }
+
+        private IEnumerator AnimateScreenCoverOut()
+        {
+            bool animationCompleted = false;
+            
+            ScreenCover.Instance.AnimateScreenCoverOut(() =>
+            {
+                animationCompleted = true;
+            });
+            
+            while (!animationCompleted)
+                yield return null;
         }
 
         public bool IsSceneLoaded(string sceneName)

@@ -41,10 +41,7 @@ namespace RobbieWagnerGames.ArcadeLibrary.Managers
             }
             
             if (!SceneLoadManager.Instance.IsSceneLoaded("MainMenu") && !isGameSceneLoaded)
-            {
-                yield return SceneLoadManager.Instance.LoadSceneAdditive("MainMenu", true, .25f);
-                Debug.Log("MainMenu loaded");
-            }
+                yield return SceneLoadManager.Instance.LoadSceneAdditive("MainMenu", false, null);
         }
 
         public IEnumerator LoadGame(GameName gameName)
@@ -53,10 +50,10 @@ namespace RobbieWagnerGames.ArcadeLibrary.Managers
 
             if(game != null)
             {
-                yield return SceneLoadManager.Instance.UnloadAllScenesExcept(new (){"MainScene"});
+                yield return SceneLoadManager.Instance.UnloadAllScenesExcept(new (){"MainScene"}, null, false);
                 CurrentGame = game;
                 OnSetGame?.Invoke(game);
-                yield return SceneLoadManager.Instance.LoadSceneAdditive(game.sceneName, true, 1, () => {OnLoadGame?.Invoke(game);});
+                yield return SceneLoadManager.Instance.LoadSceneAdditive(game.sceneName, true, () => {OnLoadGame?.Invoke(game);});
             }
             else
                 Debug.LogWarning($"Could not find a valid game for \"{gameName}\"");
