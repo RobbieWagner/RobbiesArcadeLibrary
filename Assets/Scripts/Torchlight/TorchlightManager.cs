@@ -1,7 +1,7 @@
 using RobbieWagnerGames.Managers;
 using UnityEngine;
 
-namespace RobbieWagnerGames.ArcadeLibrary
+namespace RobbieWagnerGames.ArcadeLibrary.Torchlight
 {
     public class TorchlightManager : ArcadeGameManager
     {
