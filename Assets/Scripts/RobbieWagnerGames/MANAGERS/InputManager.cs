@@ -17,7 +17,11 @@ namespace RobbieWagnerGames.Managers
         GAME,
         DIALOGUE,
         UI,
-        PAUSE
+        PAUSE,
+
+        //Game action maps
+        TORCHLIGHT,
+        RICOCHET_WEB
     }
 
     /// <summary>

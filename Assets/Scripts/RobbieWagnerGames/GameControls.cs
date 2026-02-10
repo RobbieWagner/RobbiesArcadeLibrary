@@ -1091,6 +1091,73 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""TORCHLIGHT"",
+            ""id"": ""8bb783ad-55e3-4dc9-8291-d60e8e9b877c"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""f1b158e5-e804-4876-8298-edb5ee246700"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""99ef6baa-247b-4222-b4bc-e6c2e13ae008"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""RICOCHET_WEB"",
+            ""id"": ""0c5333d4-4755-4410-a3ca-cac6ef6cd39d"",
+            ""actions"": [
+                {
+                    ""name"": ""ShootWeb"",
+                    ""type"": ""Button"",
+                    ""id"": ""550ab2bb-cc68-4d9a-b504-092074fd29a1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""2c910215-431b-43cf-86b0-c4b33894cbe7"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootWeb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ed6278a2-2250-4b63-a40b-cb1d0a130cb1"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootWeb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -1123,6 +1190,12 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         m_GAME_MousePosition = m_GAME.FindAction("MousePosition", throwIfNotFound: true);
         m_GAME_Shoot = m_GAME.FindAction("Shoot", throwIfNotFound: true);
         m_GAME_Interact = m_GAME.FindAction("Interact", throwIfNotFound: true);
+        // TORCHLIGHT
+        m_TORCHLIGHT = asset.FindActionMap("TORCHLIGHT", throwIfNotFound: true);
+        m_TORCHLIGHT_Newaction = m_TORCHLIGHT.FindAction("New action", throwIfNotFound: true);
+        // RICOCHET_WEB
+        m_RICOCHET_WEB = asset.FindActionMap("RICOCHET_WEB", throwIfNotFound: true);
+        m_RICOCHET_WEB_ShootWeb = m_RICOCHET_WEB.FindAction("ShootWeb", throwIfNotFound: true);
     }
 
     ~@GameControls()
@@ -1131,6 +1204,8 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, GameControls.UI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_PAUSE.enabled, "This will cause a leak and performance issues, GameControls.PAUSE.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_GAME.enabled, "This will cause a leak and performance issues, GameControls.GAME.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_TORCHLIGHT.enabled, "This will cause a leak and performance issues, GameControls.TORCHLIGHT.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_RICOCHET_WEB.enabled, "This will cause a leak and performance issues, GameControls.RICOCHET_WEB.Disable() has not been called.");
     }
 
     /// <summary>
@@ -1762,6 +1837,198 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="GAMEActions" /> instance referencing this action map.
     /// </summary>
     public GAMEActions @GAME => new GAMEActions(this);
+
+    // TORCHLIGHT
+    private readonly InputActionMap m_TORCHLIGHT;
+    private List<ITORCHLIGHTActions> m_TORCHLIGHTActionsCallbackInterfaces = new List<ITORCHLIGHTActions>();
+    private readonly InputAction m_TORCHLIGHT_Newaction;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "TORCHLIGHT".
+    /// </summary>
+    public struct TORCHLIGHTActions
+    {
+        private @GameControls m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public TORCHLIGHTActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "TORCHLIGHT/Newaction".
+        /// </summary>
+        public InputAction @Newaction => m_Wrapper.m_TORCHLIGHT_Newaction;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_TORCHLIGHT; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="TORCHLIGHTActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(TORCHLIGHTActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="TORCHLIGHTActions" />
+        public void AddCallbacks(ITORCHLIGHTActions instance)
+        {
+            if (instance == null || m_Wrapper.m_TORCHLIGHTActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_TORCHLIGHTActionsCallbackInterfaces.Add(instance);
+            @Newaction.started += instance.OnNewaction;
+            @Newaction.performed += instance.OnNewaction;
+            @Newaction.canceled += instance.OnNewaction;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="TORCHLIGHTActions" />
+        private void UnregisterCallbacks(ITORCHLIGHTActions instance)
+        {
+            @Newaction.started -= instance.OnNewaction;
+            @Newaction.performed -= instance.OnNewaction;
+            @Newaction.canceled -= instance.OnNewaction;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="TORCHLIGHTActions.UnregisterCallbacks(ITORCHLIGHTActions)" />.
+        /// </summary>
+        /// <seealso cref="TORCHLIGHTActions.UnregisterCallbacks(ITORCHLIGHTActions)" />
+        public void RemoveCallbacks(ITORCHLIGHTActions instance)
+        {
+            if (m_Wrapper.m_TORCHLIGHTActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="TORCHLIGHTActions.AddCallbacks(ITORCHLIGHTActions)" />
+        /// <seealso cref="TORCHLIGHTActions.RemoveCallbacks(ITORCHLIGHTActions)" />
+        /// <seealso cref="TORCHLIGHTActions.UnregisterCallbacks(ITORCHLIGHTActions)" />
+        public void SetCallbacks(ITORCHLIGHTActions instance)
+        {
+            foreach (var item in m_Wrapper.m_TORCHLIGHTActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_TORCHLIGHTActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="TORCHLIGHTActions" /> instance referencing this action map.
+    /// </summary>
+    public TORCHLIGHTActions @TORCHLIGHT => new TORCHLIGHTActions(this);
+
+    // RICOCHET_WEB
+    private readonly InputActionMap m_RICOCHET_WEB;
+    private List<IRICOCHET_WEBActions> m_RICOCHET_WEBActionsCallbackInterfaces = new List<IRICOCHET_WEBActions>();
+    private readonly InputAction m_RICOCHET_WEB_ShootWeb;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "RICOCHET_WEB".
+    /// </summary>
+    public struct RICOCHET_WEBActions
+    {
+        private @GameControls m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public RICOCHET_WEBActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "RICOCHET_WEB/ShootWeb".
+        /// </summary>
+        public InputAction @ShootWeb => m_Wrapper.m_RICOCHET_WEB_ShootWeb;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_RICOCHET_WEB; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="RICOCHET_WEBActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(RICOCHET_WEBActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="RICOCHET_WEBActions" />
+        public void AddCallbacks(IRICOCHET_WEBActions instance)
+        {
+            if (instance == null || m_Wrapper.m_RICOCHET_WEBActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_RICOCHET_WEBActionsCallbackInterfaces.Add(instance);
+            @ShootWeb.started += instance.OnShootWeb;
+            @ShootWeb.performed += instance.OnShootWeb;
+            @ShootWeb.canceled += instance.OnShootWeb;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="RICOCHET_WEBActions" />
+        private void UnregisterCallbacks(IRICOCHET_WEBActions instance)
+        {
+            @ShootWeb.started -= instance.OnShootWeb;
+            @ShootWeb.performed -= instance.OnShootWeb;
+            @ShootWeb.canceled -= instance.OnShootWeb;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="RICOCHET_WEBActions.UnregisterCallbacks(IRICOCHET_WEBActions)" />.
+        /// </summary>
+        /// <seealso cref="RICOCHET_WEBActions.UnregisterCallbacks(IRICOCHET_WEBActions)" />
+        public void RemoveCallbacks(IRICOCHET_WEBActions instance)
+        {
+            if (m_Wrapper.m_RICOCHET_WEBActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="RICOCHET_WEBActions.AddCallbacks(IRICOCHET_WEBActions)" />
+        /// <seealso cref="RICOCHET_WEBActions.RemoveCallbacks(IRICOCHET_WEBActions)" />
+        /// <seealso cref="RICOCHET_WEBActions.UnregisterCallbacks(IRICOCHET_WEBActions)" />
+        public void SetCallbacks(IRICOCHET_WEBActions instance)
+        {
+            foreach (var item in m_Wrapper.m_RICOCHET_WEBActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_RICOCHET_WEBActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="RICOCHET_WEBActions" /> instance referencing this action map.
+    /// </summary>
+    public RICOCHET_WEBActions @RICOCHET_WEB => new RICOCHET_WEBActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "DIALOGUE" which allows adding and removing callbacks.
     /// </summary>
@@ -1933,5 +2200,35 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "TORCHLIGHT" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="TORCHLIGHTActions.AddCallbacks(ITORCHLIGHTActions)" />
+    /// <seealso cref="TORCHLIGHTActions.RemoveCallbacks(ITORCHLIGHTActions)" />
+    public interface ITORCHLIGHTActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "New action" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnNewaction(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "RICOCHET_WEB" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="RICOCHET_WEBActions.AddCallbacks(IRICOCHET_WEBActions)" />
+    /// <seealso cref="RICOCHET_WEBActions.RemoveCallbacks(IRICOCHET_WEBActions)" />
+    public interface IRICOCHET_WEBActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "ShootWeb" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShootWeb(InputAction.CallbackContext context);
     }
 }

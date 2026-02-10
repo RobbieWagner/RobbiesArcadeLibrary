@@ -1005,6 +1005,73 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "TORCHLIGHT",
+            "id": "8bb783ad-55e3-4dc9-8291-d60e8e9b877c",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "f1b158e5-e804-4876-8298-edb5ee246700",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "99ef6baa-247b-4222-b4bc-e6c2e13ae008",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "RICOCHET_WEB",
+            "id": "0c5333d4-4755-4410-a3ca-cac6ef6cd39d",
+            "actions": [
+                {
+                    "name": "ShootWeb",
+                    "type": "Button",
+                    "id": "550ab2bb-cc68-4d9a-b504-092074fd29a1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2c910215-431b-43cf-86b0-c4b33894cbe7",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShootWeb",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ed6278a2-2250-4b63-a40b-cb1d0a130cb1",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShootWeb",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
