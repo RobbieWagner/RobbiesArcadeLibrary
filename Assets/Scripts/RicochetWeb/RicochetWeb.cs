@@ -271,20 +271,22 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
             
             List<Vector2> polygonPoints = new List<Vector2>(polygonPointCount);
             
+            Vector3 transformPos = transform.position;
+            
             for (int i = 0; i < pointCount; i++)
             {
-                Vector3 point3D = lineRenderer.GetPosition(i);
-                Vector2 point = new Vector2(point3D.x, point3D.y);
+                Vector3 worldPoint = lineRenderer.GetPosition(i);
+                Vector2 localPoint = new Vector2(worldPoint.x - transformPos.x, worldPoint.y - transformPos.y);
                 Vector2 perpendicular = GetPerpendicularAtPoint(i, pointCount);
-                polygonPoints.Add(new Vector2(point.x + perpendicular.x, point.y + perpendicular.y));
+                polygonPoints.Add(new Vector2(localPoint.x + perpendicular.x, localPoint.y + perpendicular.y));
             }
             
             for (int i = pointCount - 1; i >= 0; i--)
             {
-                Vector3 point3D = lineRenderer.GetPosition(i);
-                Vector2 point = new Vector2(point3D.x, point3D.y);
+                Vector3 worldPoint = lineRenderer.GetPosition(i);
+                Vector2 localPoint = new Vector2(worldPoint.x - transformPos.x, worldPoint.y - transformPos.y);
                 Vector2 perpendicular = GetPerpendicularAtPoint(i, pointCount);
-                polygonPoints.Add(new Vector2(point.x - perpendicular.x, point.y - perpendicular.y));
+                polygonPoints.Add(new Vector2(localPoint.x - perpendicular.x, localPoint.y - perpendicular.y));
             }
             
             polyCollider.SetPath(0, polygonPoints.ToArray());
@@ -335,6 +337,41 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
             isWebLocked = true;
             isShooting = false;
             UpdatePolygonCollider();
+        }
+
+        public void DestroyWeb(Action callback = null)
+        {
+            Sequence fadeSequence = DOTween.Sequence();
+            GradientColorKey[] colorKeysWhite = new GradientColorKey[2];
+            colorKeysWhite[0] = new GradientColorKey(Color.white, 0f);
+            colorKeysWhite[1] = new GradientColorKey(Color.white, 1f);
+            GradientAlphaKey[] alphaKeys = new GradientAlphaKey[2];
+            alphaKeys[0] = new GradientAlphaKey(1f, 0f);
+            alphaKeys[1] = new GradientAlphaKey(1f, 1f);
+
+            GradientColorKey[] colorKeysBlack = new GradientColorKey[2];
+            colorKeysBlack[0] = new GradientColorKey(Color.black, 0f);
+            colorKeysBlack[1] = new GradientColorKey(Color.black, 1f);
+
+            Gradient whiteGradient = new Gradient();
+            whiteGradient.SetKeys(colorKeysWhite, alphaKeys);
+            Gradient blackGradient = new Gradient();
+            blackGradient.SetKeys(colorKeysBlack, alphaKeys);
+
+            int flashes = 2;
+            float flashDuration = 0.2f;
+            for (int i = 0; i < flashes; i++)
+            {
+                fadeSequence.Append(DOTween.To(() => .25f, _ => lineRenderer.colorGradient = blackGradient, 1f, flashDuration));
+                fadeSequence.Append(DOTween.To(() => .25f, _ => lineRenderer.colorGradient = whiteGradient, 1f, flashDuration));
+            }
+
+            fadeSequence.OnComplete(() => 
+            {
+                callback?.Invoke();
+                Destroy(gameObject);
+            });
+            fadeSequence.Play();
         }
     }
 }
