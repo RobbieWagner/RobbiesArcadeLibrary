@@ -7,11 +7,6 @@ using UnityEngine.AI;
 
 namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
 {
-    /// <summary>
-    /// Defines the base AI agent and helpful methods for pathfinding.
-    /// Useful for simple AI agents or when controlling many agents.
-    /// Can be inherited for custom behaviors.
-    /// </summary>
     public class Fly : MonoBehaviour
     {
         [Header("Navigation Settings")]
@@ -123,7 +118,6 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
             int attempts = 0;
             bool success = false;
             
-            Debug.Log("find location");
             while (attempts < maxAttempts && !success)
             {
                 attempts++;
@@ -131,20 +125,16 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
                 if (attempts % attemptsBeforeYield == 0)
                     yield return null;
                 
-                Vector3 randomDirection = (Vector3) (Random.insideUnitCircle * range) + (Vector3.forward * 1.5f);
-                randomDirection += center;
+                Vector2 randomCircle = Random.insideUnitCircle * range;
                 
-                if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, range, NavMesh.AllAreas))
-                {
-                    Debug.Log("hello");
+                Vector3 randomPosition = new Vector3(center.x + randomCircle.x,center.y + randomCircle.y, 1.5f);
+                
+                if (NavMesh.SamplePosition(randomPosition, out NavMeshHit hit, range, NavMesh.AllAreas))
                     success = MoveAgent(hit.position);
-                }
             }
             
             if (!success)
-            {
                 Debug.LogWarning($"Failed to find valid navigation position after {maxAttempts} attempts");
-            }
         }
 
         protected virtual bool HasReachedDestination()
