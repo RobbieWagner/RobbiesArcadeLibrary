@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using RobbieWagnerGames.AI;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,6 +13,8 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
         
         public NavMeshAgent Agent { get; protected set; }
         public AIState CurrentState { get; protected set; } = AIState.None;
+        private Coroutine agentCoroutine;
+        public bool isCaptured = false;
 
         protected float currentWaitTime;
 
@@ -25,6 +25,7 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
             {
                 Debug.LogError("NavMeshAgent component is missing!", this);
             }
+            Agent.updateRotation = false;
 
             CurrentState = AIState.Idle;
         }
@@ -74,16 +75,15 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
             if (currentWaitTime >= idleWaitTime)
             {
                 currentWaitTime = 0;
-                MoveToRandomSpot(movementRange);
+                if (!isCaptured)
+                    MoveToRandomSpot(movementRange);
             }
         }
 
         protected virtual void UpdateMovingState()
         {
             if (HasReachedDestination())
-            {
                 GoIdle();
-            }
         }
         #endregion
 
@@ -110,7 +110,7 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
 
         public virtual void MoveToRandomSpot(float range = 100f)
         {
-            StartCoroutine(MoveToRandomSpotCoroutine(transform.position, range));
+            agentCoroutine = StartCoroutine(MoveToRandomSpotCoroutine(transform.position, range));
         }
 
         protected virtual IEnumerator MoveToRandomSpotCoroutine(Vector3 center, float range, int maxAttempts = 100, int attemptsBeforeYield = 10)
@@ -135,6 +135,8 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
             
             if (!success)
                 Debug.LogWarning($"Failed to find valid navigation position after {maxAttempts} attempts");
+            
+            agentCoroutine = null;
         }
 
         protected virtual bool HasReachedDestination()
@@ -142,6 +144,22 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
             return !Agent.pathPending 
                    && Agent.remainingDistance <= Agent.stoppingDistance 
                    && (!Agent.hasPath || Agent.velocity.sqrMagnitude == 0f);
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Hazard"))
+            {
+                Debug.Log("caught");
+                if (agentCoroutine != null)
+                {
+                    StopCoroutine(agentCoroutine);
+                    agentCoroutine = null;
+                }
+                Agent.destination = transform.position;
+                ChangeState(AIState.Idle);
+                isCaptured = true;
+            }
         }
         #endregion
     }
