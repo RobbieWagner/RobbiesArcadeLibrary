@@ -114,14 +114,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8673598259066028291}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8429134746878711130}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!195 &4671461050382911443
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -158,12 +158,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleWaitTime: 1
   movementRange: 1
-  alignToSurface: 1
-  rotationSpeed: 8
-  raycastDistance: 2
-  surfaceLayer:
-    serializedVersion: 2
-    m_Bits: 8
   isCaptured: 0
 --- !u!50 &8136855966962627309
 Rigidbody2D:

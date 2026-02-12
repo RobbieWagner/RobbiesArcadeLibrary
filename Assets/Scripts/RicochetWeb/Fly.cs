@@ -26,6 +26,7 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
                 Debug.LogError("NavMeshAgent component is missing!", this);
             }
             Agent.updateRotation = false;
+            Agent.enabled = false;
 
             CurrentState = AIState.Idle;
         }
@@ -90,6 +91,7 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
         #region Navigation
         public virtual bool SetDestination(Vector3 destination)
         {
+            Agent.enabled = true;
             Agent.isStopped = false;
             return Agent.SetDestination(destination);
         }
