@@ -1,3 +1,4 @@
+using System.Collections;
 using RobbieWagnerGames.Managers;
 using UnityEngine;
 
@@ -12,6 +13,15 @@ namespace RobbieWagnerGames.ArcadeLibrary.Torchlight
             base.Awake();
 
             EnableControls();
+
+            StartCoroutine(StartGame());
+        }
+
+        public override IEnumerator StartGame()
+        {
+            yield return base.StartGame();
+
+            Torch.Instance.InitializeTorch();
         }
     }
 }

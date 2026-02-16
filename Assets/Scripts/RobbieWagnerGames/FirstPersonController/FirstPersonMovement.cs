@@ -6,6 +6,7 @@ using DG.Tweening;
 using RobbieWagnerGames.Utilities;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace RobbieWagnerGames.FirstPerson
 {
@@ -17,6 +18,9 @@ namespace RobbieWagnerGames.FirstPerson
     {
         [Header("Movement Settings")]
         [SerializeField] private float walkSpeed = 5f;
+        [SerializeField] private float runSpeed = 10f;
+        private bool isRunning= false;
+        private float CurrentSpeed => isRunning ? runSpeed : walkSpeed;
         [SerializeField] private float gravity = -9.8f;
         [SerializeField] private LayerMask groundMask;
         [SerializeField] private float groundCheckDistance = 0.1f;
@@ -32,6 +36,7 @@ namespace RobbieWagnerGames.FirstPerson
         private Vector3 moveInput = Vector3.zero;
         private Vector3 velocity = Vector3.zero;
         private InputAction moveAction;
+        private InputAction runAction;
         private float nextFootstepTime;
         private bool isGrounded;
         private GroundType currentGroundType = GroundType.None;
@@ -89,6 +94,9 @@ namespace RobbieWagnerGames.FirstPerson
             moveAction = InputManager.Instance.GetAction(ActionMapName.GAME, "Move");
             moveAction.performed += OnMovePerformed;
             moveAction.canceled += OnMoveCanceled;
+
+            runAction = InputManager.Instance.GetAction(ActionMapName.GAME, "Run");
+            runAction.performed += OnRunPerformed;
         }
 
         private void UpdateGroundCheck()
@@ -116,7 +124,7 @@ namespace RobbieWagnerGames.FirstPerson
             Vector3 moveDirection = transform.right * moveInput.x + transform.forward * moveInput.z;
             if (moveInput == Vector3.zero)
                 moveDirection = Vector3.down;
-            characterController.Move(moveDirection * walkSpeed * Time.deltaTime + velocity * Time.deltaTime);
+            characterController.Move(moveDirection * CurrentSpeed * Time.deltaTime + velocity * Time.deltaTime);
         }
 
         private void UpdateFootsteps()
@@ -161,6 +169,11 @@ namespace RobbieWagnerGames.FirstPerson
         {
             moveInput = Vector3.zero;
             IsMoving = false;
+        }
+
+        private void OnRunPerformed(InputAction.CallbackContext context)
+        {
+            isRunning = !isRunning;
         }
 
         private void UpdateMovementState()

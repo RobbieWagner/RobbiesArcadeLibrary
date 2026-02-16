@@ -66,5 +66,8 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "RobbiesArcadeLibrary.sln"
+    "dotnet.defaultSolution": "RobbiesArcadeLibrary.sln",
+    "cSpell.words": [
+        "UNEUCLID"
+    ]
 }

@@ -38,6 +38,7 @@ namespace RobbieWagnerGames.FirstPerson
             {
                 if (value == _canLook) return;
                 
+                Debug.Log(value);
                 _canLook = value;
                 UpdateCursorState();
                 onLookStateChanged?.Invoke(_canLook);
@@ -103,6 +104,7 @@ namespace RobbieWagnerGames.FirstPerson
 
         private void OnLookPerformed(InputAction.CallbackContext context)
         {
+            //Debug.Log("hello");
             currentLookInput = context.ReadValue<Vector2>();
             isUsingController = context.control.device is Gamepad;
         }

@@ -56,5 +56,10 @@ namespace RobbieWagnerGames.Utilities
         {
             isRunning = true;
         }
+
+        public void ResetTimer()
+        {
+            timerValue = 0;
+        }
     }
 }

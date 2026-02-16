@@ -188,6 +188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f87709c0ca06e54d83b39f9f2101b44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameName: 2
+  gameName: 3
   buttonObj: {fileID: 1668945167584826499}
   box: {fileID: 3753571585045663285}

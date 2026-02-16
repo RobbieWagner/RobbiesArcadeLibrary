@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using NavMeshPlus.Extensions;
 using RobbieWagnerGames.Utilities;
 using UnityEngine;
 
@@ -22,15 +23,24 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
         {
             base.Awake();
 
-            SpawnFly(Vector2.zero);
+            SpawnFly();
         }
+
+        public void SpawnFly() => SpawnFly(new Vector2(Random.Range(minBounds.x, maxBounds.x), Random.Range(minBounds.y, maxBounds.y)));
 
         public void SpawnFly(Vector2 position)
         {
+            Debug.Log(position);
             Fly fly = Instantiate(flyPrefab, transform);
-            fly.transform.position = new Vector3(position.x, position.y, 1.5f);
+            fly.transform.position = new Vector3(Mathf.Clamp(position.x, minBounds.x, maxBounds.x), Mathf.Clamp(position.y, minBounds.y, maxBounds.y), 1.5f);
 
             flies.Add(fly);
+        }
+
+        public void DestroyAllFlies(FlyDestructionReason destructionReason = FlyDestructionReason.CLEANUP)
+        {
+            foreach (Fly fly in flies)
+                DestroyFly(fly, destructionReason);
         }
 
         public void DestroyFly(Fly fly, FlyDestructionReason destructionReason)
@@ -42,7 +52,5 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
             if (destructionReason == FlyDestructionReason.POINT)
                 RicochetWebScoreManager.Instance.Score++;
         }
-
-
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using RobbieWagnerGames.AI;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,14 +8,16 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
 {
     public class Fly : MonoBehaviour
     {
-        [Header("Navigation Settings")]
+        [Header("Visual")]
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        [Header("Navigation")]
         [SerializeField] protected float idleWaitTime = 3f;
         [SerializeField] protected float movementRange = 100f;
         
         public NavMeshAgent Agent { get; protected set; }
         public AIState CurrentState { get; protected set; } = AIState.None;
         private Coroutine agentCoroutine;
-        public bool isCaptured = false;
+        public bool isCaptured {get; private set;}
 
         protected float currentWaitTime;
 
@@ -151,8 +154,15 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Hazard"))
+                CaptureFly();
+        }
+        #endregion
+
+        #region Capture
+        private void CaptureFly()
+        {
+            if (!isCaptured)
             {
-                Debug.Log("caught");
                 if (agentCoroutine != null)
                 {
                     StopCoroutine(agentCoroutine);
@@ -161,6 +171,16 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
                 Agent.destination = transform.position;
                 ChangeState(AIState.Idle);
                 isCaptured = true;
+
+                Sequence dieOnCaptureSequence = DOTween.Sequence();
+
+                for (int i = 0; i < 4; i++)
+                {
+                    dieOnCaptureSequence.Append(spriteRenderer.DOColor(Color.clear, .1f));
+                    dieOnCaptureSequence.Append(spriteRenderer.DOColor(Color.white, .1f));
+                }
+                dieOnCaptureSequence.OnComplete(() => {FlyManager.Instance.DestroyFly(this, FlyDestructionReason.POINT);});
+                dieOnCaptureSequence.Play();
             }
         }
         #endregion

@@ -1,20 +1,24 @@
 using System;
 using UnityEngine;
 
-public enum GameName
+namespace RobbieWagnerGames.ArcadeLibrary
 {
-    NONE = -1,
-    TORCHLIGHT,
-    RICOCHET_WEB,
-    GAMBLING
-}
+    public enum GameName
+    {
+        NONE = -1,
+        TORCHLIGHT,
+        RICOCHET_WEB,
+        GAMBLING,
+        UNEUCLID
+    }
 
-[Serializable]
-public class GameConfigurationData
-{
-    public GameName gameName;
-    public string gameTitle;
-    public string sceneName;
-    public Sprite gameIcon;
-    [TextArea] public string gameDesc; 
+    [Serializable]
+    public class GameConfigurationData
+    {
+        public GameName gameName;
+        public string gameTitle;
+        public string sceneName;
+        public Sprite gameIcon;
+        [TextArea] public string gameDesc; 
+    }
 }

@@ -911,6 +911,15 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""5da2c90a-4fe4-4a40-a3a5-fe2a99a20f89"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1089,6 +1098,28 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c362ef8-f3de-487f-a0a5-212cf4b3b64f"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd07367b-91b5-42b3-bea9-83ea7183a5ce"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1097,9 +1128,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             ""id"": ""8bb783ad-55e3-4dc9-8291-d60e8e9b877c"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""ToggleTorchlight"",
                     ""type"": ""Button"",
-                    ""id"": ""f1b158e5-e804-4876-8298-edb5ee246700"",
+                    ""id"": ""ae75adcc-5a5a-47c0-8ca7-3bed765aabc3"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1109,12 +1140,23 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""99ef6baa-247b-4222-b4bc-e6c2e13ae008"",
-                    ""path"": """",
+                    ""id"": ""de042f51-18e7-46d6-93e6-59ee1d31a058"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""ToggleTorchlight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b5bd09a-d51d-4698-8b84-9913f63a04c3"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleTorchlight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1190,9 +1232,10 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         m_GAME_MousePosition = m_GAME.FindAction("MousePosition", throwIfNotFound: true);
         m_GAME_Shoot = m_GAME.FindAction("Shoot", throwIfNotFound: true);
         m_GAME_Interact = m_GAME.FindAction("Interact", throwIfNotFound: true);
+        m_GAME_Run = m_GAME.FindAction("Run", throwIfNotFound: true);
         // TORCHLIGHT
         m_TORCHLIGHT = asset.FindActionMap("TORCHLIGHT", throwIfNotFound: true);
-        m_TORCHLIGHT_Newaction = m_TORCHLIGHT.FindAction("New action", throwIfNotFound: true);
+        m_TORCHLIGHT_ToggleTorchlight = m_TORCHLIGHT.FindAction("ToggleTorchlight", throwIfNotFound: true);
         // RICOCHET_WEB
         m_RICOCHET_WEB = asset.FindActionMap("RICOCHET_WEB", throwIfNotFound: true);
         m_RICOCHET_WEB_ShootWeb = m_RICOCHET_WEB.FindAction("ShootWeb", throwIfNotFound: true);
@@ -1706,6 +1749,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_GAME_MousePosition;
     private readonly InputAction m_GAME_Shoot;
     private readonly InputAction m_GAME_Interact;
+    private readonly InputAction m_GAME_Run;
     /// <summary>
     /// Provides access to input actions defined in input action map "GAME".
     /// </summary>
@@ -1737,6 +1781,10 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "GAME/Interact".
         /// </summary>
         public InputAction @Interact => m_Wrapper.m_GAME_Interact;
+        /// <summary>
+        /// Provides access to the underlying input action "GAME/Run".
+        /// </summary>
+        public InputAction @Run => m_Wrapper.m_GAME_Run;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1778,6 +1826,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Run.started += instance.OnRun;
+            @Run.performed += instance.OnRun;
+            @Run.canceled += instance.OnRun;
         }
 
         /// <summary>
@@ -1804,6 +1855,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Run.started -= instance.OnRun;
+            @Run.performed -= instance.OnRun;
+            @Run.canceled -= instance.OnRun;
         }
 
         /// <summary>
@@ -1841,7 +1895,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     // TORCHLIGHT
     private readonly InputActionMap m_TORCHLIGHT;
     private List<ITORCHLIGHTActions> m_TORCHLIGHTActionsCallbackInterfaces = new List<ITORCHLIGHTActions>();
-    private readonly InputAction m_TORCHLIGHT_Newaction;
+    private readonly InputAction m_TORCHLIGHT_ToggleTorchlight;
     /// <summary>
     /// Provides access to input actions defined in input action map "TORCHLIGHT".
     /// </summary>
@@ -1854,9 +1908,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// </summary>
         public TORCHLIGHTActions(@GameControls wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "TORCHLIGHT/Newaction".
+        /// Provides access to the underlying input action "TORCHLIGHT/ToggleTorchlight".
         /// </summary>
-        public InputAction @Newaction => m_Wrapper.m_TORCHLIGHT_Newaction;
+        public InputAction @ToggleTorchlight => m_Wrapper.m_TORCHLIGHT_ToggleTorchlight;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1883,9 +1937,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_TORCHLIGHTActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_TORCHLIGHTActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
+            @ToggleTorchlight.started += instance.OnToggleTorchlight;
+            @ToggleTorchlight.performed += instance.OnToggleTorchlight;
+            @ToggleTorchlight.canceled += instance.OnToggleTorchlight;
         }
 
         /// <summary>
@@ -1897,9 +1951,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// <seealso cref="TORCHLIGHTActions" />
         private void UnregisterCallbacks(ITORCHLIGHTActions instance)
         {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
+            @ToggleTorchlight.started -= instance.OnToggleTorchlight;
+            @ToggleTorchlight.performed -= instance.OnToggleTorchlight;
+            @ToggleTorchlight.canceled -= instance.OnToggleTorchlight;
         }
 
         /// <summary>
@@ -2200,6 +2254,13 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Run" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRun(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "TORCHLIGHT" which allows adding and removing callbacks.
@@ -2209,12 +2270,12 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     public interface ITORCHLIGHTActions
     {
         /// <summary>
-        /// Method invoked when associated input action "New action" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "ToggleTorchlight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnToggleTorchlight(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "RICOCHET_WEB" which allows adding and removing callbacks.

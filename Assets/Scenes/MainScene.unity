@@ -845,6 +845,14 @@ MonoBehaviour:
         - {r: 0.48235297, g: 0.4431373, b: 0.38431376, a: 1}
         - {r: 0.22352943, g: 0.21960786, b: 0.16078432, a: 1}
         colorPalette: {fileID: 21300000, guid: 351096eacf20640089e6c99e07b77d46, type: 3}
+    - Key: 3
+      Value:
+        colors:
+        - {r: 1, g: 1, b: 1, a: 1}
+        - {r: 1, g: 0, b: 0, a: 1}
+        - {r: 0, g: 0, b: 1, a: 1}
+        - {r: 0, g: 0, b: 0, a: 1}
+        colorPalette: {fileID: 21300000, guid: 431f2a56ad75f4f4e9a2334c3ba90d44, type: 3}
     - Key: 1
       Value:
         colors:
@@ -1027,6 +1035,11 @@ MonoBehaviour:
     sceneName: Gambling
     gameIcon: {fileID: 21300000, guid: cfe3774fd472877488cdc8cffe9c98b6, type: 3}
     gameDesc: GAMBA GAMBA GAMBA
+  - gameName: 3
+    gameTitle: UnEuclid
+    sceneName: UnEuclid
+    gameIcon: {fileID: 21300000, guid: cfe3774fd472877488cdc8cffe9c98b6, type: 3}
+    gameDesc: Traverse a world that doesn't make sense
   emptyGame: -1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

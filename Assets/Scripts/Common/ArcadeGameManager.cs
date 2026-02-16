@@ -1,3 +1,4 @@
+using System.Collections;
 using RobbieWagnerGames.ArcadeLibrary.Managers;
 using RobbieWagnerGames.Managers;
 using RobbieWagnerGames.Utilities;
@@ -19,6 +20,11 @@ namespace RobbieWagnerGames.ArcadeLibrary
         protected virtual void EnableControls()
         {
             InputManager.Instance.EnableActionMap(ActionMapName.GAME);
+        }
+
+        public virtual IEnumerator StartGame()
+        {
+            yield return null;
         }
     }
 }

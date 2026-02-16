@@ -1,5 +1,7 @@
 using System;
 using RobbieWagnerGames.Utilities;
+using TMPro;
+using UnityEngine;
 
 namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
 {
@@ -15,8 +17,12 @@ namespace RobbieWagnerGames.ArcadeLibrary.RicochetWeb
                     return;
                 score = value; 
                 OnScoreUpdated?.Invoke(score);
+
+                scoreText.text = score.ToString("D4");
             }
         }
         public event Action<int> OnScoreUpdated;
+
+        [SerializeField] private TextMeshProUGUI scoreText;
     }
 }

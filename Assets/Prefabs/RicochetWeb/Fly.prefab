@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8429134746878711130}
   - component: {fileID: 7056335199683893710}
+  - component: {fileID: 6031694673454518411}
   m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
@@ -87,6 +88,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &6031694673454518411
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8134591008907122108}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.014
 --- !u!1 &8673598259066028291
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +166,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8673598259066028291}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.05
   m_Speed: 3.5
@@ -156,9 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 372a648c24e64704886049448c3324f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 7056335199683893710}
   idleWaitTime: 1
   movementRange: 1
-  isCaptured: 0
 --- !u!50 &8136855966962627309
 Rigidbody2D:
   serializedVersion: 5

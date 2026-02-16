@@ -825,6 +825,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "5da2c90a-4fe4-4a40-a3a5-fe2a99a20f89",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1003,6 +1012,28 @@
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3c362ef8-f3de-487f-a0a5-212cf4b3b64f",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bd07367b-91b5-42b3-bea9-83ea7183a5ce",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -1011,9 +1042,9 @@
             "id": "8bb783ad-55e3-4dc9-8291-d60e8e9b877c",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "ToggleTorchlight",
                     "type": "Button",
-                    "id": "f1b158e5-e804-4876-8298-edb5ee246700",
+                    "id": "ae75adcc-5a5a-47c0-8ca7-3bed765aabc3",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1023,12 +1054,23 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "99ef6baa-247b-4222-b4bc-e6c2e13ae008",
-                    "path": "",
+                    "id": "de042f51-18e7-46d6-93e6-59ee1d31a058",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "ToggleTorchlight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9b5bd09a-d51d-4698-8b84-9913f63a04c3",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleTorchlight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
