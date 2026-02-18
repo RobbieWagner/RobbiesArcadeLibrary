@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UnEuclidPortal_1
+  m_Name: UnEuclidPortal_4_0
   m_Shader: {fileID: 4800000, guid: 98c7036316b79b546a4f1b0daa8c165c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
