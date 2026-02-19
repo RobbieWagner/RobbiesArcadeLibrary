@@ -7,9 +7,9 @@ namespace RobbieWagnerGames.ArcadeLibrary.UnEuclid
     public class InfinitePassage : MonoBehaviour
     {
         [SerializeField] private List<Transform> transforms = new List<Transform>(); // assume length 3
-        [SerializeField] private Collider upTrigger;
+        [SerializeField] private PassageTrigger upTrigger;
         [SerializeField] private Vector3 upTriggerOffset;
-        [SerializeField] private Collider downTrigger;
+        [SerializeField] private PassageTrigger downTrigger;
         [SerializeField] private Vector3 downTriggerOffset;
         [SerializeField] private int currentTransformIndex = 1; // assume start in middle
         [SerializeField] private Vector3 objectOffset = Vector3.zero;
@@ -22,27 +22,35 @@ namespace RobbieWagnerGames.ArcadeLibrary.UnEuclid
 
             transforms[0].position = initialPos - objectOffset;
             transforms[2].position = initialPos + objectOffset;
+            
+            downTrigger.onTriggered += HandleDownTrigger;
+            upTrigger.onTriggered += HandleUpTrigger;
+
+            downTrigger.transform.position = transforms[1].position + downTriggerOffset;
+            upTrigger.transform.position = transforms[1].position + upTriggerOffset;
         }
 
-        private void OnTriggerExit(Collider other)
+        private void HandleDownTrigger(PassageTrigger trigger, Transform playerTransform)
         {
-            Debug.Log("hi");
-            if (other.gameObject.CompareTag("Player"))
-                UpdateTransforms(other.transform);
+            if (playerTransform.position.y < trigger.transform.position.y)
+                MovePassage((currentTransformIndex + 2) % 3); // (currentTransformIndex - 1 + 3) % 3
         }
 
-        private void UpdateTransforms(Transform player)
+        private void HandleUpTrigger(PassageTrigger trigger, Transform playerTransform)
         {
-            Vector3 playerPos = player.position;
+            if (playerTransform.position.y > trigger.transform.position.y)
+                MovePassage((currentTransformIndex + 1) % 3);
+        }
+        
+        private void MovePassage(int newIndex)
+        {
+            currentTransformIndex = newIndex;
 
-            if (playerPos.y > transforms[currentTransformIndex].position.y) // TODO: Extend to other axis (not just y)
-            {
-                Debug.Log("above");
-            }
-            else if (playerPos.y < transforms[currentTransformIndex].position.y)
-            {
-                Debug.Log("below");
-            }
+            transforms[(currentTransformIndex + 2) % 3].position = transforms[currentTransformIndex].position - objectOffset; // (currentTransformIndex - 1 + 3) % 3
+            transforms[(currentTransformIndex + 1) % 3].position = transforms[currentTransformIndex].position + objectOffset;
+
+            downTrigger.transform.position = transforms[currentTransformIndex].position + downTriggerOffset;
+            upTrigger.transform.position = transforms[currentTransformIndex].position + upTriggerOffset;
         }
     }
 }
