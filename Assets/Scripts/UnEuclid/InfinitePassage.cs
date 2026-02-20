@@ -38,8 +38,9 @@ namespace RobbieWagnerGames.ArcadeLibrary.UnEuclid
 
         private void HandleUpTrigger(PassageTrigger trigger, Transform playerTransform)
         {
-            if (playerTransform.position.y > trigger.transform.position.y)
+            if (Mathf.Abs(playerTransform.position.y - trigger.transform.position.y) < .25f) // because the root is at the players feet
                 MovePassage((currentTransformIndex + 1) % 3);
+            Debug.Log("triggered");
         }
         
         private void MovePassage(int newIndex)
